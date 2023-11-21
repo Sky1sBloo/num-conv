@@ -4,6 +4,11 @@
 #include <string>
 
 
+void printSeparator()
+{
+	std::cout << "=======================================" << std::endl;
+}
+
 // Helper function for decimalToBase (do not call directly)
 void printDecimalEq(int& prevQuotient, int& base, std::string& answer)
 {
@@ -38,13 +43,14 @@ void decimalToBase(long double value, int base, int decimalPrecision = 8)
 	std::reverse(answer.begin(), answer.end());
 	std::cout << "Answer Int: " <<  answer << std::endl;
 
+
 	// The ff code is for the decimal part of the value
 	long double decimal = value - std::floor(value);
 	
 	std::string ansDecimal = "";
 	int currentLoop = 0; // To prevent infinite looping on irrational numbers
 
-	while (decimal != 0 && currentLoop < 8)
+	while (decimal != 0 && currentLoop < decimalPrecision)
 	{
 		long double newDecimal = decimal * base;
 		char intAnswer;
@@ -61,26 +67,56 @@ void decimalToBase(long double value, int base, int decimalPrecision = 8)
 
 	// Decimal part
 	std::cout << "Answer Decimal: " << ansDecimal << std::endl;
+	printSeparator();
 
 	// Final answer
-	std::cout << "=======================================" << std::endl;
-	std::cout << answer << "." << ansDecimal << std::endl;
+	std::cout << "Final Answer: " << answer << "." << ansDecimal << std::endl;
 }
 
-void baseToDecimal(long double value, int base, int decimalPrecision = 8)
+void baseToDecimal(long double value, int base)
 {
 	// For the integer part of value
 	int intValue = std::floor(value);
 	int intAns = 0;
-	for (int digit = 0; digit < std::floor(std::log10(intValue)); digit++)
+	for (int digit = 0; digit < std::floor(std::log10(intValue)) + 1; digit++)
 	{
 		int digitValue = static_cast<int>(std::floor(intValue / std::pow(10, digit))) % 10;  // Returns the digit from intValue
-		intAns += digitValue * static_cast<int>(std::pow(10, digit));
-		std::cout << digitValue << " * " << "10^" << digit << digitValue * std::pow(10, digit);
+		int digitAns = digitValue * static_cast<int>(std::pow(base, digit));
+
+		intAns += digitAns;
+		std::cout << digitValue << " * 10^" << digit << " = " << 
+			digitAns << std::endl;
 	}
+	std::cout << "Answer Int: " << intAns << std::endl;
 
 	// For the decimal part of value
-	//
+	long double decValue = value - intValue;
+	long double decAns = 0;
+
+
+	if (decValue != 0)
+	{
+		std::string stringDecValue = std::to_string(decValue);
+		stringDecValue.erase(0, 2);  // Removes the "0." from decimal
+		
+		
+		int decLength = stringDecValue.length();
+		for (int digit = 0; digit < decLength; digit++)
+		{
+			int digitValue =  stringDecValue[digit] - '0';
+			long double digitAns = digitValue * std::pow(base, -(digit + 1));
+			decAns += digitAns;
+
+			std::cout << digitValue << " * 10^" << -(digit + 1) << " = " << digitAns << std::endl; 
+		}
+
+		// Since decAns currently appends to int convert it to decimal
+		std::cout << "Answer Decimal: " << decAns << std::endl;
+	}
+
+	printSeparator();
+	
+	std::cout << "Final Answer: " << intAns + decAns << std::endl;
 }
 
 int main(int argc, char* argv[])
@@ -91,21 +127,28 @@ int main(int argc, char* argv[])
 		if (command == "--help")
 		{
 			std::cout << "-COMMANDS-\n" << 
-			"--dec2base [decimal] [base] -p [precision] " << 
-			"| Converts a decimal to base, precision can be ommited (default 8)\n";
+			"	--dec2base [decimal] [base] -p [precision]\n" << 
+			"		Converts a decimal to base, precision can be ommited (default 8)\n" <<
+			"	--base2dec [decimal] [base]\n" <<
+			"		Converts a base to decimal" << std::endl;
 		}
 		else if (command == "--dec2base")
 		{
 			if (argv[i + 3] == "-p")
 			{
 				decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), std::stoi(argv[i + 4]));	
-				i+= 4;
+				i += 4;
 			}
 			else
 			{
 				decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]));	
-				i+=2;
+				i +=2;
 			}
+		}
+		else if (command == "--base2dec")
+		{
+			baseToDecimal(std::stold(argv[i + 1]), std::stoi(argv[i + 2]));
+			i += 2;
 		}
 		else
 		{
