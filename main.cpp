@@ -47,7 +47,13 @@ void decimalToBase(long double value, int base, int decimalPrecision = 8)
 	while (decimal != 0 && currentLoop < 8)
 	{
 		long double newDecimal = decimal * base;
-		ansDecimal += std::to_string((int)std::floor(newDecimal));
+		char intAnswer;
+		if (newDecimal >= 10)
+			intAnswer = std::floor(newDecimal) + 'A' - 10;
+		else
+			intAnswer = std::floor(newDecimal) + '0';
+
+		ansDecimal += intAnswer;
 		std::cout << decimal << " * " << base << " = " << newDecimal << std::endl;
 		decimal = newDecimal - std::floor(newDecimal);
 		currentLoop++;
