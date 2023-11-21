@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
 		}
 		else if (command == "--dec2base")
 		{
-			if (argv[i + 3] == "-p")
+			if (std::string(argv[i + 3]) == "-p")
 			{
 				decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), std::stoi(argv[i + 4]));	
 				i += 4;
