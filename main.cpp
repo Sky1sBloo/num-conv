@@ -78,6 +78,9 @@ void baseToDecimal(long double value, int base, int decimalPrecision = 8)
 		intAns += digitValue * static_cast<int>(std::pow(10, digit));
 		std::cout << digitValue << " * " << "10^" << digit << digitValue * std::pow(10, digit);
 	}
+
+	// For the decimal part of value
+	//
 }
 
 int main(int argc, char* argv[])
@@ -88,10 +91,10 @@ int main(int argc, char* argv[])
 		if (command == "--help")
 		{
 			std::cout << "-COMMANDS-\n" << 
-			"--dec2Base [decimal] [base] -p [precision] " << 
+			"--dec2base [decimal] [base] -p [precision] " << 
 			"| Converts a decimal to base, precision can be ommited (default 8)\n";
 		}
-		else if (command == "--dec2Base")
+		else if (command == "--dec2base")
 		{
 			if (argv[i + 3] == "-p")
 			{
@@ -103,11 +106,11 @@ int main(int argc, char* argv[])
 				decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]));	
 				i+=2;
 			}
-			break;
 		}
 		else
 		{
 			std::cout << "Invalid Command: Type --help to view commands" << std::endl;
+			break;
 		}
 	}
 }
