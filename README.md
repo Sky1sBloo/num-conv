@@ -18,7 +18,7 @@ Alternatively you can directly move *num-conv* using: `mv [path to repository/nu
 ## Usage
 ### --help
 > Lists all commands 
-### --dec2base [decima] [base] 
+### --dec2base [decimal] [base] 
 > Converts a decimal to radix with precision 8
 
 ### --dec2base [decimal] [base] -p [precision]
