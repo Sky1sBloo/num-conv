@@ -136,8 +136,7 @@ int main(int argc, char* argv[])
 			"		Converts a decimal to base\n" <<
 			"	--dec2base [decimal] [base] -p [precision]\n" << 
 			"		Converts a decimal to base with set precision (default 8)\n" <<
-
-			"	--base2dec [decimal] [base]\n" <<
+			"	--base2dec [value] [base]\n" <<
 			"		Converts a base to decimal" << std::endl;
 		}
 		else if (command == "--dec2base")
