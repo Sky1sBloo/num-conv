@@ -131,11 +131,12 @@ int main(int argc, char* argv[])
 		std::string command = argv[i];
 		if (command == "--help")
 		{
-			std::cout << "-COMMANDS-\n" << 
-			"	--dec2base [decimal] [base] -p [precision]\n" << 
-			"		Converts a decimal to base, precision can be ommited (default 8)\n" <<
+			std::cout << "num-conv: COMMANDS\n" << 
 			"	--dec2base [decimal] [base]\n" <<
+			"		Converts a decimal to base\n" <<
+			"	--dec2base [decimal] [base] -p [precision]\n" << 
 			"		Converts a decimal to base with set precision (default 8)\n" <<
+
 			"	--base2dec [decimal] [base]\n" <<
 			"		Converts a base to decimal" << std::endl;
 		}
