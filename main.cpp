@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
 {
 	if (argc == 1)
 	{
-		std::cout << "Type --help to view commands" << std::endl;
+		std::cout << "num-conv: Type --help to view commands" << std::endl;
 	}
 
 	for(int i = 1; i < argc; i++)
@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			std::cout << "Invalid Command: Type --help to view commands" << std::endl;
+			std::cout << "num-conv: Invalid Command: Type --help to view commands" << std::endl;
 			break;
 		}
 	}
