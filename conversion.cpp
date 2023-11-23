@@ -135,3 +135,4 @@ void baseToDecimal(const std::string& value, int base, bool isPrint)
 	printSeparator(isPrint);
 	std::cout << std::to_string(decAns + intAns) << std::endl;
 }
+
