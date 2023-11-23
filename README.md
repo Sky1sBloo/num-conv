@@ -3,7 +3,7 @@ This tool provides basic utilities for basic number system conversion and prints
 
 ## Installation
 ### Installation for Windows users
-1. Compile main.cpp using your preferred compiler
+1. Compile the cpp files using your preferred compiler
 
 ### Installation for Linux users
 Follow the steps below to perform a manual installation:
