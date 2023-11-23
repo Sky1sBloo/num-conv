@@ -39,28 +39,25 @@ int main(int argc, char* argv[])
 		else if (command == "--dec2base")
 		{
 
-			if (std::string(argv[i + 2]) == "-p")
-			{
-				decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), std::stoi(argv[i + 4]), isPrint);	
-				i += 4;
-			}
-			else
-			{
-				decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), 8, isPrint);	
-				i += 2;
-			}
-
-			
-			/*
 			try
 			{
+				if (std::string(argv[i + 2]) == "-p")
+				{
+					decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), std::stoi(argv[i + 4]), isPrint);	
+					i += 4;
+				}
+				else
+				{
+					decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), 8, isPrint);	
+					i += 2;
+				}
 			}
 			catch (...)
 			{
 				//printInvalidInput();
 				std::cout << "Error" << std::endl;
 				break;
-			} */
+			} 
 		}
 		else if (command == "--base2dec")
 		{

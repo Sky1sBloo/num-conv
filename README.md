@@ -18,6 +18,8 @@ Alternatively you can directly move *num-conv* using: `mv [path to repository/nu
 ## Usage
 ### --help
 > Lists all commands 
+### --print [conversion] ...
+> A modifier of printing the operations during the conversion processes 
 ### --dec2base [decimal] [base] 
 > Converts a decimal to radix with precision 8
 
