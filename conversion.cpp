@@ -1,16 +1,26 @@
 #include "conversion.h"
 
 
-void printSeparator()
+// Used for printing commands dependent on the --print flag
+void printProcess(const std::string& value, bool isPrint, bool endln = true)
 {
-	std::cout << "=======================================" << std::endl;
+	if (!isPrint) return;
+	std::cout << value;
+
+	if (endln)
+		std::cout << std::endl;
+}
+
+void printSeparator(bool isPrint)
+{
+	printProcess("====================================", isPrint);
 }
 
 
 // Helper function for decimalToBase (do not call directly)
-void printDecimalEq(int& prevQuotient, int& base, std::string& answer)
+void printDecimalEq(int& prevQuotient, int& base, std::string& answer, bool isPrint)
 {
-	std::cout << base << "|" <<prevQuotient << "  ";
+	printProcess(std::to_string(base) + "|" + std::to_string(prevQuotient) + " - ", isPrint, false);
 
 	int remainder = prevQuotient % base;
 	std::string remainderStr = std::to_string(remainder);
@@ -22,28 +32,28 @@ void printDecimalEq(int& prevQuotient, int& base, std::string& answer)
 	answer += remainderStr;
 
 	prevQuotient = std::floor(prevQuotient / base);
-	std::cout << remainderStr;
-	std::cout << std::endl;
+	printProcess(remainderStr, isPrint);
 }
 
-void decimalToBase(long double value, int base, int decimalPrecision)
+void decimalToBase(long double value, int base, int decimalPrecision, bool isPrint)
 {
 	// The following code is for the integer part of the value
 	int prevQuotient = std::floor(value);
 	std::string answer = "";
 	while (prevQuotient >= base)
 	{
-		printDecimalEq(prevQuotient, base, answer);
+		printDecimalEq(prevQuotient, base, answer, isPrint);
 	}
-	printDecimalEq(prevQuotient, base, answer);
+	printDecimalEq(prevQuotient, base, answer, isPrint);
 
 	// Reverse to get the correct answer
 	std::reverse(answer.begin(), answer.end());
-	std::cout << "Answer Int: " <<  answer << std::endl;
+	printProcess("Answer Int: " + answer, isPrint);
 
 
 	// The ff code is for the decimal part of the value
 	long double decimal = value - std::floor(value);
+
 	
 	std::string ansDecimal = "";
 	int currentLoop = 0; // To prevent infinite looping on irrational numbers
@@ -58,20 +68,23 @@ void decimalToBase(long double value, int base, int decimalPrecision)
 			intAnswer = std::floor(newDecimal) + '0';
 
 		ansDecimal += intAnswer;
-		std::cout << decimal << " * " << base << " = " << newDecimal << std::endl;
+
+		printProcess(std::to_string(decimal) + " * " + std::to_string(base) + " = " + 
+			std::to_string(newDecimal), isPrint);
+
 		decimal = newDecimal - std::floor(newDecimal);
 		currentLoop++;
 	}
 
 	// Decimal part
-	std::cout << "Answer Decimal: " << ansDecimal << std::endl;
-	printSeparator();
+	printProcess("Answer Decimal: " + ansDecimal, isPrint);
 
+	printSeparator(isPrint);
 	// Final answer
-	std::cout << "Final Answer: " << answer << "." << ansDecimal << std::endl;
+	std::cout << answer << "." << ansDecimal << std::endl;
 }
 
-void baseToDecimal(std::string& value, int base)
+void baseToDecimal(const std::string& value, int base, bool isPrint)
 {
 	// For the integer part of value
 	std::string intValue = value;
@@ -86,16 +99,16 @@ void baseToDecimal(std::string& value, int base)
 		int digitAns = (intValue[digit] - '0') * static_cast<int>(std::pow(base, digit));
 		intAns += digitAns;
 
-		std::cout << intValue[digit] << " * " << base << "^" << digit << " = " << digitAns << std::endl;
+		printProcess(std::to_string(intValue[digit]) + " * " + std::to_string(base) + "^" + 
+			std::to_string(digit) + " = " + std::to_string(digitAns), isPrint);
 	}
-	std::cout << "Answer Int: " << intAns << std::endl;
+	printProcess("Answer Int: " + std::to_string(intAns), isPrint);
 
 	// For decimal part of value
 	long double decAns = 0;
 	if (decPos != std::string::npos)
 	{		
 		long double decValue = std::stold(value.substr(decPos, value.length() - 1));
-		std::cout << "Dec value = " << decValue << std::endl;
 		if (decValue != 0)
 		{
 			std::string stringDecValue = std::to_string(decValue);
@@ -109,15 +122,16 @@ void baseToDecimal(std::string& value, int base)
 				long double digitAns = digitValue * std::pow(base, -(digit + 1));
 				decAns += digitAns;
 	
-				std::cout << digitValue << " * 10^" << -(digit + 1) << " = " << digitAns << std::endl; 
+				printProcess(std::to_string(digitValue) + " * 10^" + std::to_string(-(digit + 1)) + 
+					" = " + std::to_string(digitAns), isPrint);
 			}
 
 			// Since decAns currently appends to int convert it to decimal
-			std::cout << "Answer Decimal: " << decAns << std::endl;
+			printProcess("Answer Decimal: " + std::to_string(decAns), isPrint);
 		}
 	
 		
 	}
-	printSeparator();	
-	std::cout << "Final Answer: " << std::to_string(decAns + intAns) << std::endl;
+	printSeparator(isPrint);
+	std::cout << std::to_string(decAns + intAns) << std::endl;
 }
