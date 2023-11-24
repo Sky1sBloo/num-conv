@@ -55,3 +55,6 @@ Converts a specified radix to decimal
 --binary2dec [value] [base]
 ```
 Does a direct connection from binary to the specified radix
+
+## Contributions
+Contributions are welcome! Feel free to submit pull requests and open issues.
