@@ -109,7 +109,7 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 		int digitAns = digitValue * static_cast<int>(std::pow(base, digit));
 		intAns += digitAns;
 
-		printProcess(std::to_string(intValue[digit]) + " * " + std::to_string(base) + "^" + 
+		printProcess(std::to_string(digitValue) + " * " + std::to_string(base) + "^" + 
 			std::to_string(digit) + " = " + std::to_string(digitAns), isPrint);
 	}
 	printProcess("Answer Int: " + std::to_string(intAns), isPrint);
