@@ -28,3 +28,6 @@ Alternatively you can directly move *num-conv* using: `mv [path to repository/nu
 
 ### --base2dec [value] [base]
 > Converts a radix to decimal
+
+### --binary2dec [value] [base]
+> Converts a binary to the specified base

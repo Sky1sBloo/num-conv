@@ -33,7 +33,9 @@ int main(int argc, char* argv[])
 			"	--dec2base [decimal] [base] -p [precision]\n" << 
 			"		Converts a decimal to base with set precision\n" <<
 			"	--base2dec [value] [base]\n" <<
-			"		Converts a base to decimal" << std::endl;
+			"		Converts a base to decimal\n" <<
+			"	--binary2base [value] [base]\n" << 
+			"		Converts a binary to the specified base" << std::endl;
 		}
 		else if (command == "--print")
 		{
