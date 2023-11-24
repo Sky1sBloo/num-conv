@@ -172,14 +172,14 @@ std::optional<std::string> binaryToBase(const std::string& value, int base, bool
 		}
 
 		// Allows support for hexadecimal values
-		char grpTotalChar = grpTotal + '0'; // Allows for hexadecimal values
+		std::string grpTotalChar = std::to_string(grpTotal); // Allows for hexadecimal values
 		if (grpTotal >= 10)
 		{
 			grpTotalChar = grpTotal - 10 + 'A';	
 		}
 
 		intAnswer += grpTotalChar;
-		printProcess("=" + std::to_string(grpTotalChar) + "\n------", isPrint);
+		printProcess("=" + grpTotalChar + "\n------", isPrint);
 	}
 
 	std::reverse(intAnswer.begin(), intAnswer.end());  // Due to incremental, the correct value is reversed
