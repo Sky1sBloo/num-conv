@@ -37,4 +37,14 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint = fal
  *
  * @param The converted value of binary
  */
-std::optional<std::string> binaryToBase(const std::string& value, int base, bool isPrint);
+std::optional<std::string> binaryToBase(const std::string& value, int base, bool isPrint = false);
+
+/**
+ * Converts a specified base to binary
+ *
+ * @param value Base value to be converted to binary
+ * @param base The current base of value
+ * @param isPrint Function will print its processed steps if isPrint is true
+ */
+
+std::optional<std::string> baseToBinary(const std::string& value, int base, bool isPrint = false);

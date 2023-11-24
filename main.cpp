@@ -35,7 +35,9 @@ int main(int argc, char* argv[])
 			"	--base2dec [value] [base]\n" <<
 			"		Converts a base to decimal\n" <<
 			"	--binary2base [value] [base]\n" << 
-			"		Does a direct conversion from binary to the specified base" << std::endl;
+			"		Does a direct conversion from binary to the specified base\n" <<
+			"	--base2binary [value] [base]\n" <<
+			"		Does a conversion from base to binary" << std::endl;
 		}
 		else if (command == "--print")
 		{
@@ -90,6 +92,28 @@ int main(int argc, char* argv[])
 
 				std::string value = argv[i + 1];
 				std::optional<std::string> answer = binaryToBase(value, std::stoi(argv[i + 2]), isPrint);
+
+				if (!answer.has_value())
+					throw std::invalid_argument("Invalid base argument to direct conversion");
+
+				std::cout << answer.value() << std::endl;
+				i += 2;
+			}
+			catch (std::invalid_argument& e)
+			{
+				printInvalidInput(e.what());
+				return 1;
+			}
+		}
+		else if (command == "--base2binary")
+		{
+			try
+			{
+				if (argv[i + 1] == nullptr || argv[i + 2] == nullptr)
+					throw std::invalid_argument("");
+
+				std::string value = argv[i + 1];
+				std::optional<std::string> answer = baseToBinary(argv[i + 1], std::stoi(argv[i + 2]), isPrint);
 
 				if (!answer.has_value())
 					throw std::invalid_argument("Invalid base argument to direct conversion");

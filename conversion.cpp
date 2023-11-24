@@ -157,7 +157,6 @@ std::optional<std::string> binaryToBase(const std::string& value, int base, bool
 	size_t decPos = value.find(".");
 	if (decPos != std::string::npos)
 		intValue = value.substr(0, decPos);
-	int intValueLen = intValue.length() - 1;
 
 	std::reverse(intValue.begin(), intValue.end());  // We have to reverse is to ensure that the order loops correctly
 	
@@ -234,3 +233,77 @@ std::optional<std::string> binaryToBase(const std::string& value, int base, bool
 		return intAnswer;
 	}
 }	
+
+std::optional<std::string> baseToBinary(const std::string& value, int base, bool isPrint)
+{
+	// Checks if base supports direct binary conversion
+	long double posOnSequence = std::log2(base); 	// This variable will separate the value into groups
+	if (posOnSequence - std::floor(posOnSequence) != 0)	return std::nullopt;
+
+	// Integers value
+	std::string intAnswer = "";
+	std::string intValue = value;
+	size_t decPos = value.find(".");
+	if (decPos != std::string::npos)
+		intValue = value.substr(0, decPos);
+
+	for (int iDigit = 0; iDigit < static_cast<int>(intValue.length()); iDigit++)
+	{
+		// Convert digit to decimal then to binary
+		std::string digit;
+
+		// Supports hexadecimalvalues
+		if (std::toupper(intValue[iDigit]) >= 'A')
+			digit = std::to_string(intValue[iDigit] - 'A' + 10);  // Converts hex values to integral values
+		else
+			digit.push_back(intValue[iDigit]);
+
+		//long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
+		std::string binOfDigit = decimalToBase(std::stold(digit), 2);
+		// Ensure binOfDigit has 3 characters
+		while (static_cast<int>(binOfDigit.length()) < static_cast<int>(posOnSequence))
+		{
+			binOfDigit = "0" + binOfDigit;
+		}
+		printProcess(binOfDigit + " - " +  digit, isPrint);
+
+		intAnswer += binOfDigit;
+	}
+
+	// Check if there are leading zeroes in intAnswer
+	while (intAnswer[0] == '0')
+	{
+		intAnswer.erase(intAnswer.begin());
+	}
+
+	//Decimal value
+	std::string decAnswer = "";
+	std::string decValue = value;
+	if (decPos != std::string::npos)
+	{
+		std::string decValue = value.substr(decPos + 1, value.length() - 1);
+
+		printProcess(".", isPrint);  // This is to add a separator between integers and decimal values
+	
+		for (int iDigit = 0; iDigit < static_cast<int>(decValue.length()); iDigit++)
+		{
+			// Convert digit to decimal then to binary
+			std::string digit;
+			digit.push_back(decValue[iDigit]);
+			long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
+			std::string binOfDigit = decimalToBase(decimalOfDigit, 2);
+			// Ensure binOfDigit has 3 characters
+			while (static_cast<int>(binOfDigit.length()) < static_cast<int>(posOnSequence))
+			{
+				binOfDigit = "0" + binOfDigit;
+			}
+			printProcess(binOfDigit + " - " +  digit, isPrint);
+			decAnswer += binOfDigit;
+		}
+		printSeparator(isPrint);
+		return intAnswer + "." + decAnswer;
+	}
+
+	printSeparator(isPrint);
+	return intAnswer;
+}

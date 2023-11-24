@@ -50,11 +50,17 @@ Converts a decimal to radix with a specified precision
 ```
 Converts a specified radix to decimal
 
-### Binary to decimal
+### Binary to base
 ```
---binary2dec [value] [base]
+--binary2base [value] [base]
 ```
 Does a direct connection from binary to the specified radix
+
+### Base to binary
+```
+--base2binary [value] [base]
+```
+Does a conversion between from base to binary
 
 ## Contributions
 Contributions are welcome! Feel free to submit pull requests and open issues.
