@@ -1,6 +1,7 @@
 #include "conversion.h"
 #include <iostream>
 #include <algorithm>
+#include <cctype>
 #include <cmath>
 
 
@@ -101,7 +102,11 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 	std::reverse(intValue.begin(), intValue.end());
 	for (int digit = 0; digit < static_cast<int>(intValue.length()); digit++)
 	{
-		int digitAns = (intValue[digit] - '0') * static_cast<int>(std::pow(base, digit));
+		int digitValue = intValue[digit] - '0';
+		if (std::toupper(intValue[digit]) >= 'A')
+			digitValue = std::toupper(intValue[digit]) - 'A' + 10; // Allow support for hexadecimal values
+
+		int digitAns = digitValue * static_cast<int>(std::pow(base, digit));
 		intAns += digitAns;
 
 		printProcess(std::to_string(intValue[digit]) + " * " + std::to_string(base) + "^" + 
@@ -126,7 +131,6 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 				int digitValue =  stringDecValue[digit] - '0';
 				long double digitAns = digitValue * std::pow(base, -(digit + 1));
 				decAns += digitAns;
-	
 				printProcess(std::to_string(digitValue) + " * 10^" + std::to_string(-(digit + 1)) + 
 					" = " + std::to_string(digitAns), isPrint);
 			}
@@ -154,7 +158,7 @@ std::optional<std::string> binaryToBase(const std::string& value, int base, bool
 	
 	std::string intAnswer = "";
 	
-	for (int iGrp = 0; iGrp < std::ceil(valueLen/ posOnSequence); iGrp++)
+	for (int iGrp = 0; iGrp < std::ceil(valueLen / posOnSequence); iGrp++)
 	{
 		int grpTotal = 0;
 		for (int iDigit = 0; iDigit + iGrp * posOnSequence <= valueLen && iDigit < posOnSequence; iDigit++)
@@ -166,8 +170,16 @@ std::optional<std::string> binaryToBase(const std::string& value, int base, bool
 			printProcess(std::to_string(digitValue) + " * " + std::to_string(multiplier) + " = " + std::to_string(intAns),
 				       	isPrint);
 		}
-		intAnswer += std::to_string(grpTotal);
-		printProcess("=" + std::to_string(grpTotal) + "\n------", isPrint);
+
+		// Allows support for hexadecimal values
+		char grpTotalChar = grpTotal + '0'; // Allows for hexadecimal values
+		if (grpTotal >= 10)
+		{
+			grpTotalChar = grpTotal - 10 + 'A';	
+		}
+
+		intAnswer += grpTotalChar;
+		printProcess("=" + std::to_string(grpTotalChar) + "\n------", isPrint);
 	}
 
 	std::reverse(intAnswer.begin(), intAnswer.end());  // Due to incremental, the correct value is reversed
