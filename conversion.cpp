@@ -148,22 +148,27 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 std::optional<std::string> binaryToBase(const std::string& value, int base, bool isPrint)
 {
 	// Checks if base supports direct binary conversion
-	long double posOnSequence = std::log10(base) / std::log10(2);	// This variable will separate the value into groups
+	long double posOnSequence = std::log2(base); 	// This variable will separate the value into groups
 	if (posOnSequence - std::floor(posOnSequence) != 0)	return std::nullopt;
 
-	int valueLen = value.length() - 1;
+	// For the integer part of value
+	
+	std::string intValue = value;
+	size_t decPos = value.find(".");
+	if (decPos != std::string::npos)
+		intValue = value.substr(0, decPos);
+	int intValueLen = intValue.length() - 1;
 
-	std::string reversedValue = value;
-	std::reverse(reversedValue.begin(), reversedValue.end());
+	std::reverse(intValue.begin(), intValue.end());  // We have to reverse is to ensure that the order loops correctly
 	
 	std::string intAnswer = "";
 	
-	for (int iGrp = 0; iGrp < std::ceil(valueLen / posOnSequence); iGrp++)
+	for (int iGrp = 0; iGrp < std::ceil(intValue.length() / posOnSequence); iGrp++)
 	{
 		int grpTotal = 0;
-		for (int iDigit = 0; iDigit + iGrp * posOnSequence <= valueLen && iDigit < posOnSequence; iDigit++)
+		for (int iDigit = 0; iDigit + iGrp * posOnSequence <= intValue.length() - 1 && iDigit < posOnSequence; iDigit++)
 		{		
-			int digitValue = reversedValue[iGrp * posOnSequence + iDigit] - '0';
+			int digitValue = intValue[iGrp * posOnSequence + iDigit] - '0';
 			int multiplier = std::pow(2, iDigit);
 			int intAns = digitValue * multiplier; 
 			grpTotal += intAns;
@@ -184,7 +189,48 @@ std::optional<std::string> binaryToBase(const std::string& value, int base, bool
 
 	std::reverse(intAnswer.begin(), intAnswer.end());  // Due to incremental, the correct value is reversed
 	printProcess("Answer Int: " + intAnswer, isPrint);
-	printSeparator(isPrint);
 
-	return intAnswer;
+
+	// This part is for the decimal part of value
+	if (decPos != std::string::npos)
+	{	
+		std::string decValue = value.substr(decPos + 1, value.length() - 1);
+
+		std::string decAnswer = "";
+
+		for (int iGrp = 0; iGrp < std::ceil(decValue.length() / posOnSequence); iGrp++)
+		{
+			int grpTotal = 0;
+			for (int iDigit = 0; iDigit + iGrp * posOnSequence <= decValue.length() - 1 && iDigit < posOnSequence; iDigit++)
+			{
+				int digitValue = decValue[iGrp * posOnSequence + iDigit] - '0';
+				int multiplier = std::pow(2, posOnSequence - 1 - iDigit);
+				int decAns = digitValue * multiplier;
+				grpTotal += decAns;
+
+				printProcess(std::to_string(digitValue) + " * " + std::to_string(multiplier) + " = " + 
+						std::to_string(decAns), isPrint);
+			}
+
+
+			// Allows support for hexadecimal values
+			std::string grpTotalChar = std::to_string(grpTotal); // Allows for hexadecimal values
+			if (grpTotal >= 10)
+			{
+				grpTotalChar = grpTotal - 10 + 'A';	
+			}
+
+			decAnswer += grpTotalChar;
+			printProcess("=" + grpTotalChar + "\n------", isPrint);
+		}
+
+		printProcess("Answer Decimal: " + decAnswer, isPrint);
+		printSeparator(isPrint);
+		return intAnswer + "." + decAnswer;
+	}
+	else
+	{
+		printSeparator(isPrint);
+		return intAnswer;
+	}
 }	
