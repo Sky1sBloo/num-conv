@@ -2,9 +2,12 @@
 #include "conversion.h"
 
 
-void printInvalidInput()
+void printInvalidInput(const std::string& errorMessage = "")
 {
-	std::cout << "num-conv: Invalid Command: Type --help to view commands" << std::endl;
+	if (errorMessage == "")
+		std::cout << "num-conv: Invalid Command: Type --help to view commands" << std::endl;
+	else
+		std::cout << "num-conv: " + errorMessage << std::endl;
 }
 
 
@@ -44,21 +47,21 @@ int main(int argc, char* argv[])
 				{
 					if (argv[i + 1] == nullptr || argv[i + 2] == nullptr || argv[i + 4] == nullptr)
 						throw std::invalid_argument("");
-					decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), std::stoi(argv[i + 4]), isPrint);	
+					std::cout << decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), std::stoi(argv[i + 4]), isPrint) << std::endl;	
 					i += 4;
 				}
 				else
 				{
 					if (argv[i + 1] == nullptr || argv[i + 2] == nullptr)
 						throw std::invalid_argument("");
-					decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), 8, isPrint);	
+					std::cout << std::string(decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), 8, isPrint)) << std::endl;	
 					i += 2;
 				}
 			}
 			catch (std::invalid_argument& e)
 			{
 				printInvalidInput();
-				break;
+				return 1;
 			}
 		}
 		else if (command == "--base2dec")
@@ -66,19 +69,44 @@ int main(int argc, char* argv[])
 			try
 			{
 				std::string value = argv[i + 1];
-				baseToDecimal(value, std::stoi(argv[i + 2]), isPrint);
+				std::cout << baseToDecimal(value, std::stoi(argv[i + 2]), isPrint) << std::endl;
 				i += 2;
 			}
 			catch (std::invalid_argument& arg)
 			{
 				printInvalidInput();
-				break;
+				return 1;
+			}
+		}
+		else if (command == "--binary2base")
+		{
+			try
+			{
+				if (argv[i + 1] == nullptr || argv[i + 2] == nullptr)
+					throw std::invalid_argument("");
+
+
+				std::string value = argv[i + 1];
+				std::optional<std::string> answer = binaryToBase(value, std::stoi(argv[i + 2]), isPrint);
+
+				if (!answer.has_value())
+					throw std::invalid_argument("Invalid base argument to direct conversion");
+
+				std::cout << answer.value() << std::endl;
+				i += 2;
+			}
+			catch (std::invalid_argument& e)
+			{
+				printInvalidInput(e.what());
+				return 1;
 			}
 		}
 		else
 		{
 			printInvalidInput();
-			break;
+			return 1;
 		}
 	}
+
+	return 0;
 }

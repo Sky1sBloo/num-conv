@@ -3,9 +3,10 @@
 #include <algorithm>
 #include <cmath>
 #include <string>
+#include <optional>
 
-void printDecimalEq(int& prevQuotient, int& base, std::string& answer, bool isPrint = false);
+std::string decimalToBase(long double value, int base, int decimalPrecision = 8, bool isPrint = false);
 
-void decimalToBase(long double value, int base, int decimalPrecision = 8, bool isPrint = false);
+std::string baseToDecimal(const std::string& value, int base, bool isPrint = false);
 
-void baseToDecimal(const std::string& value, int base, bool isPrint = false);
+std::optional<std::string> binaryToBase(const std::string& value, int base, bool isPrint);

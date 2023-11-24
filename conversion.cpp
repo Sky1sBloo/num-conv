@@ -1,4 +1,7 @@
 #include "conversion.h"
+#include <iostream>
+#include <algorithm>
+#include <cmath>
 
 
 // Used for printing commands dependent on the --print flag
@@ -11,6 +14,7 @@ void printProcess(const std::string& value, bool isPrint, bool endln = true)
 		std::cout << std::endl;
 }
 
+
 void printSeparator(bool isPrint)
 {
 	printProcess("====================================", isPrint);
@@ -18,7 +22,7 @@ void printSeparator(bool isPrint)
 
 
 // Helper function for decimalToBase (do not call directly)
-void printDecimalEq(int& prevQuotient, int& base, std::string& answer, bool isPrint)
+void convertDecimalEq(int& prevQuotient, int& base, std::string& answer, bool isPrint)
 {
 	printProcess(std::to_string(base) + "|" + std::to_string(prevQuotient) + " - ", isPrint, false);
 
@@ -35,16 +39,16 @@ void printDecimalEq(int& prevQuotient, int& base, std::string& answer, bool isPr
 	printProcess(remainderStr, isPrint);
 }
 
-void decimalToBase(long double value, int base, int decimalPrecision, bool isPrint)
+std::string decimalToBase(long double value, int base, int decimalPrecision, bool isPrint)
 {
 	// The following code is for the integer part of the value
 	int prevQuotient = std::floor(value);
 	std::string answer = "";
 	while (prevQuotient >= base)
 	{
-		printDecimalEq(prevQuotient, base, answer, isPrint);
+		convertDecimalEq(prevQuotient, base, answer, isPrint);
 	}
-	printDecimalEq(prevQuotient, base, answer, isPrint);
+	convertDecimalEq(prevQuotient, base, answer, isPrint);
 
 	// Reverse to get the correct answer
 	std::reverse(answer.begin(), answer.end());
@@ -81,10 +85,11 @@ void decimalToBase(long double value, int base, int decimalPrecision, bool isPri
 
 	printSeparator(isPrint);
 	// Final answer
-	std::cout << answer << "." << ansDecimal << std::endl;
+	if (ansDecimal == "")	return answer;
+	return answer + "." + ansDecimal;
 }
 
-void baseToDecimal(const std::string& value, int base, bool isPrint)
+std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 {
 	// For the integer part of value
 	std::string intValue = value;
@@ -129,10 +134,45 @@ void baseToDecimal(const std::string& value, int base, bool isPrint)
 			// Since decAns currently appends to int convert it to decimal
 			printProcess("Answer Decimal: " + std::to_string(decAns), isPrint);
 		}
-	
-		
 	}
 	printSeparator(isPrint);
-	std::cout << std::to_string(decAns + intAns) << std::endl;
+	
+	if (decAns == 0) return std::to_string(intAns);
+	return std::to_string(decAns + intAns);
 }
 
+std::optional<std::string> binaryToBase(const std::string& value, int base, bool isPrint)
+{
+	// Checks if base supports direct binary conversion
+	long double posOnSequence = std::log10(base) / std::log10(2);	// This variable will separate the value into groups
+	if (posOnSequence - std::floor(posOnSequence) != 0)	return std::nullopt;
+
+	int valueLen = value.length() - 1;
+
+	std::string reversedValue = value;
+	std::reverse(reversedValue.begin(), reversedValue.end());
+	
+	std::string intAnswer = "";
+	
+	for (int iGrp = 0; iGrp < std::ceil(valueLen/ posOnSequence); iGrp++)
+	{
+		int grpTotal = 0;
+		for (int iDigit = 0; iDigit + iGrp * posOnSequence <= valueLen && iDigit < posOnSequence; iDigit++)
+		{		
+			int digitValue = reversedValue[iGrp * posOnSequence + iDigit] - '0';
+			int multiplier = std::pow(2, iDigit);
+			int intAns = digitValue * multiplier; 
+			grpTotal += intAns;
+			printProcess(std::to_string(digitValue) + " * " + std::to_string(multiplier) + " = " + std::to_string(intAns),
+				       	isPrint);
+		}
+		intAnswer += std::to_string(grpTotal);
+		printProcess("=" + std::to_string(grpTotal) + "\n------", isPrint);
+	}
+
+	std::reverse(intAnswer.begin(), intAnswer.end());  // Due to incremental, the correct value is reversed
+	printProcess("Answer Int: " + intAnswer, isPrint);
+	printSeparator(isPrint);
+
+	return intAnswer;
+}	
