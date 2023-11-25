@@ -8,6 +8,7 @@ void printInvalidInput(const std::string& errorMessage = "")
 		std::cout << "num-conv: Invalid Command: Type --help to view commands" << std::endl;
 	else
 		std::cout << "num-conv: " + errorMessage << std::endl;
+
 }
 
 
