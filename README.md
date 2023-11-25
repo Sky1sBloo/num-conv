@@ -7,21 +7,21 @@ This tool provides basic utilities for basic number system conversion and prints
 
 ### Installation for Linux users
 Follow the steps below to perform a manual installation:
-1. Clone the repository with
+1. Clone the repository
    ```
    https://github.com/Ultra8Gaming/num-conv.git
    ```
-3. Move to your PATH directory (can be `/usr/local/bin`, `/opt`, `~/.local/bin` or any specified PATHS)  
-   ```
-   cd [path directory]
-   ```
-5. Create a system link to your installed repository
-   ```
-   ln -s [path to your repository]/num-conv num-conv
-   ```
+2. Go to the *Releases* folder
+    ```
+    cd Releases
+    ```
+3. Compile and install
+    ```
+    sudo make
+    ```
+> You can change installation location by modifying `CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE` on
+> CmakeLists.txt
 
->Alternatively you can directly move *num-conv* using:  
->`mv [path to repository/num-conv] [directory to PATH]`
 
 ## Usage
 ### Help

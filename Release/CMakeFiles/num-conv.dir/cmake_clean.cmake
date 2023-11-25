@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/jdp/custom-scripts/num-conv/num-conv"
-  "/home/jdp/custom-scripts/num-conv/num-conv.pdb"
+  "/usr/local/bin/num-conv"
+  "/usr/local/bin/num-conv.pdb"
   "CMakeFiles/num-conv.dir/main.cpp.o"
   "CMakeFiles/num-conv.dir/main.cpp.o.d"
   "CMakeFiles/num-conv.dir/src/conversion.cpp.o"

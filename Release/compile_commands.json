@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/jdp/custom-scripts/num-conv/Release",
+  "command": "/usr/bin/c++  -I/home/jdp/custom-scripts/num-conv/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/num-conv.dir/main.cpp.o -c /home/jdp/custom-scripts/num-conv/main.cpp",
+  "file": "/home/jdp/custom-scripts/num-conv/main.cpp",
+  "output": "CMakeFiles/num-conv.dir/main.cpp.o"
+},
+{
+  "directory": "/home/jdp/custom-scripts/num-conv/Release",
+  "command": "/usr/bin/c++  -I/home/jdp/custom-scripts/num-conv/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/num-conv.dir/src/conversion.cpp.o -c /home/jdp/custom-scripts/num-conv/src/conversion.cpp",
+  "file": "/home/jdp/custom-scripts/num-conv/src/conversion.cpp",
+  "output": "CMakeFiles/num-conv.dir/src/conversion.cpp.o"
+}
+]
