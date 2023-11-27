@@ -293,6 +293,9 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 //host path for Qt
 QT_HOST_PATH:PATH=/usr
 
+//Build a static binary.
+STATIC_BUILD:BOOL=ON
+
 //Value Computed by CMake
 num-conv_BINARY_DIR:STATIC=/home/jdp/custom-scripts/num-conv/build-win
 
