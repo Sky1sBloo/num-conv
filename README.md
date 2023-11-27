@@ -18,7 +18,6 @@ If **Open in Terminal** is missing in the context menu, you can:
 2. Type cd "directory to your file"
 > ex. cd C:\users\[USER]\desktop\num-conv
 3. Then run ./num-conv.exe
-``
 
 ### Installation for Linux users
 Follow the steps below to perform a manual installation:
