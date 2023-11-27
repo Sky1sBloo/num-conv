@@ -1,0 +1,7 @@
+/home/jdp/custom-scripts/num-conv/build-linux/CMakeFiles/num-conv.dir
+/home/jdp/custom-scripts/num-conv/build-linux/CMakeFiles/edit_cache.dir
+/home/jdp/custom-scripts/num-conv/build-linux/CMakeFiles/rebuild_cache.dir
+/home/jdp/custom-scripts/num-conv/build-linux/CMakeFiles/list_install_components.dir
+/home/jdp/custom-scripts/num-conv/build-linux/CMakeFiles/install.dir
+/home/jdp/custom-scripts/num-conv/build-linux/CMakeFiles/install/local.dir
+/home/jdp/custom-scripts/num-conv/build-linux/CMakeFiles/install/strip.dir

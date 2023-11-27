@@ -1,3 +1,0 @@
-/home/jdp/custom-scripts/num-conv/Debug/CMakeFiles/num-conv.dir
-/home/jdp/custom-scripts/num-conv/Debug/CMakeFiles/edit_cache.dir
-/home/jdp/custom-scripts/num-conv/Debug/CMakeFiles/rebuild_cache.dir

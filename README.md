@@ -11,16 +11,16 @@ Follow the steps below to perform a manual installation:
    ```
    https://github.com/Ultra8Gaming/num-conv.git
    ```
-2. Go to the *Releases* folder
+2. Go to the *build-linux" directory
     ```
-    cd Releases
+    cd build-linux
     ```
 3. Compile and install
     ```
-    sudo make
+    make
+    sudo make install
     ```
-> You can change installation location by modifying `CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE` on
-> CmakeLists.txt
+> You can change installation location by modifying  CmakeLists.txt
 
 
 ## Usage

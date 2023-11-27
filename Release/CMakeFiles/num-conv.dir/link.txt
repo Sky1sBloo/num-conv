@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG "CMakeFiles/num-conv.dir/main.cpp.o" "CMakeFiles/num-conv.dir/src/conversion.cpp.o" -o /usr/local/bin/num-conv 
