@@ -24,7 +24,7 @@ std::string decimalToBase(long double value, int base, int decimalPrecision = 8,
  * @param base The current base of value
  * @param isPrint Function will print its processed steps if isPrint is true
  *
- * @param The decimal version of value
+ * @returms The decimal version of value
  */
 std::string baseToDecimal(const std::string& value, int base, bool isPrint = false);
 
@@ -35,7 +35,7 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint = fal
  * @param base The base value output
  * @param isPrint Function will print its processed steps if isPrint is true
  *
- * @param The converted value of binary
+ * @returns The converted value of binary
  */
 std::optional<std::string> binaryToBase(const std::string& value, int base, bool isPrint = false);
 
