@@ -14,40 +14,16 @@ void printInvalidInput(const std::string& errorMessage = "")
 		std::cout << "num-conv: " + errorMessage << std::endl;
 }
 
-/**
- * Interactive mode with input
- */
-void interactiveMode()
-{
-	std::cout << "Type of conversion\n" <<
-		"0 - Decimal to Base\n" <<
-		"1 - Base to Decimal\n" <<
-		"2 - Binary to Base\n" <<
-		"3 - Base to binary" << std::endl;
-
-	int answer;
-	std::cin >> answer;
-
-	switch (answer)
-	{
-		case 0:
-			break;
-		case 1:
-			break;
-	}
-}
-
-
 int main(int argc, char* argv[])
 {
 	if (argc == 1)
 	{
 		std::cout << "num-conv: Type --help to view commands" << std::endl;
-
 	}
 
-	bool isPrint = false;
+	bool isPrint = false;  // For printing the specific operations during conversion (see --print)
 
+	// Argument handling
 	for(int i = 1; i < argc; i++)
 	{
 		std::string command = argv[i];
