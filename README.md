@@ -27,7 +27,7 @@ Follow the steps below to perform a manual installation:
     ```
     git clone https://github.com/Ultra8Gaming/num-conv.git
     ```
-2. Go to the *build-linux" directory
+2. Go to the *build-linux* directory
     ```
     cd build-linux
     ```
