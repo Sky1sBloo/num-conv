@@ -131,7 +131,7 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 				int digitValue =  stringDecValue[digit] - '0';
 				long double digitAns = digitValue * std::pow(base, -(digit + 1));
 				decAns += digitAns;
-				printProcess(std::to_string(digitValue) + " * 10^" + std::to_string(-(digit + 1)) + 
+				printProcess(std::to_string(digitValue) + " *" + std::to_string(base) + "^" + std::to_string(-(digit + 1)) + 
 					" = " + std::to_string(digitAns), isPrint);
 			}
 
