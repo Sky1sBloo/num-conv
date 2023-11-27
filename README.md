@@ -1,19 +1,31 @@
-+# num-conv
+# num-conv
 This tool provides basic utilities for basic number system conversion and prints its processes
 
 ## Installation
 ### Installation for Windows users
-1. Compile the cpp files using your preferred compiler
+1. Clone the repository or download zip.
+2. Extract the zip file (if applicable).
+3. Open the folder where you extracted/cloned the repository.
+4. Right click, click **Open in Terminal** (if you're using Windows 11 and its missing, press **Show more options**)
+5. You can run the program by typing `./num-conv.exe [COMMAND]` in the terminal. You can see the commands below or type `./num-conv.exe --help` in the console.
+``
+Notes
+If **Open in Terminal** is missing in the context menu, you can:
+1. Open the command prompt
+2. Type cd "directory to your file"
+> ex. cd C://users/[USER]/desktop/num-conv
+3. Then run ./num-conv.exe
+``
 
 ### Installation for Linux users
 Follow the steps below to perform a manual installation:
 1. Clone the repository
-   ```
-   https://github.com/Ultra8Gaming/num-conv.git
-   ```
-2. Go to the *build-linux" directory
     ```
-    cd build-linux
+    git clone https://github.com/Ultra8Gaming/num-conv.git
+    ```
+2. Go to the *build" directory
+    ```
+    cd build
     ```
 3. Compile and install
     ```
