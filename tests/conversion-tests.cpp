@@ -113,10 +113,11 @@ TEST(CONVERSION_TESTS, BASE_TO_BINARY)
 	// Hexadecimal test
 	auto intHexadecimal = baseToBinary("ABCDEF987654321", 16);
 	auto decHexadecimal = baseToBinary("0.ABCDEF9", 16);
-	auto realHexadecimal = baseToBinary("1011.000101", 16);
+	auto realHexadecimal = baseToBinary("ABCDEF.ABCDEF", 16);
 
 	EXPECT_EQ(intHexadecimal.value(), "101010111100110111101111100110000111011001010100001100100001");
-	EXPECT_EQ(decHexadecimal, "0.1D");
+	EXPECT_EQ(decHexadecimal, ".1010101111001101111011111001");
+	EXPECT_EQ(realHexadecimal, "101010111100110111101111.101010111100110111101111");
 }
 
 int main(int argc, char* argv[])
