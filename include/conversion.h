@@ -15,9 +15,6 @@
  *
  * @returns The converted value
  */
-std::string decimalToBase(long double value, int base, int decimalPrecision = 8, bool isPrint = false);
-
-
 std::string decimalToBase(const std::string& value, int base, int decimalPrecision = 8, bool isPrint = false);
 
 /**

@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 				{
 					if (argv[i + 1] == nullptr || argv[i + 2] == nullptr || argv[i + 4] == nullptr)
 						throw std::invalid_argument("");
-					std::cout << decimalToBase(std::stold(argv[i + 1]), std::stoi(argv[i + 2]), std::stoi(argv[i + 4]), isPrint) << std::endl;	
+					std::cout << decimalToBase(argv[i + 1], std::stoi(argv[i + 2]), std::stoi(argv[i + 4]), isPrint) << std::endl;	
 					i += 4;
 				}
 				else

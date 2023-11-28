@@ -69,7 +69,7 @@ std::string decimalToBase(const std::string& value, int base, int decimalPrecisi
 		std::string decValue = value.substr(decPos, value.length() - 1);
 		std::string decAns = "";
 		
-		for (int iLoop = 0; iLoop < decimalPrecision && iLoop < decValue.length(); iLoop++)
+		for (int iLoop = 0; iLoop < decimalPrecision || iLoop < decValue.length(); iLoop++)
 		{
 			long double newDecimal = std::stold(decValue) * base;
 			char intAnswer;
@@ -94,58 +94,6 @@ std::string decimalToBase(const std::string& value, int base, int decimalPrecisi
 		return intAns + "." + decAns;
 	}
 	return intAns;	
-}
-
-// Change value to string
-std::string decimalToBase(long double value, int base, int decimalPrecision, bool isPrint)
-{
-	// The following code is for the integer part of the value
-	int prevQuotient = std::floor(value);
-	std::string answer = "";
-	while (prevQuotient >= base)
-	{
-		convertDecimalEq(prevQuotient, base, answer, isPrint);
-	}
-	convertDecimalEq(prevQuotient, base, answer, isPrint);
-
-	// Reverse to get the correct answer
-	std::reverse(answer.begin(), answer.end());
-	printProcess("Answer Int: " + answer, isPrint);
-
-
-	// The ff code is for the decimal part of the value
-	long double decimal = value - std::floor(value);
-
-	
-	std::string ansDecimal = "";
-	int currentLoop = 0; // To prevent infinite looping on irrational numbers
-
-	// The operation decimal != 0 is wrong
-	while (decimal != 0 && currentLoop < decimalPrecision)
-	{
-		long double newDecimal = decimal * base;
-		char intAnswer;
-		if (newDecimal >= 10)
-			intAnswer = std::floor(newDecimal) + 'A' - 10;
-		else
-			intAnswer = std::floor(newDecimal) + '0';
-
-		ansDecimal += intAnswer;
-
-		printProcess(std::to_string(decimal) + " * " + std::to_string(base) + " = " + 
-			std::to_string(newDecimal), isPrint);
-
-		decimal = newDecimal - std::floor(newDecimal);
-		currentLoop++;
-	}
-
-	// Decimal part
-	printProcess("Answer Decimal: " + ansDecimal, isPrint);
-
-	printSeparator(isPrint);
-	// Final answer
-	if (ansDecimal == "")	return answer;
-	return answer + "." + ansDecimal;
 }
 
 std::string baseToDecimal(const std::string& value, int base, bool isPrint)
@@ -317,7 +265,7 @@ std::optional<std::string> baseToBinary(const std::string& value, int base, bool
 			digit.push_back(intValue[iDigit]);
 
 		//long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
-		std::string binOfDigit = decimalToBase(std::stold(digit), 2);
+		std::string binOfDigit = decimalToBase(digit, 2);
 		// Ensure binOfDigit has 3 characters
 		while (static_cast<int>(binOfDigit.length()) < static_cast<int>(posOnSequence))
 		{
@@ -348,8 +296,8 @@ std::optional<std::string> baseToBinary(const std::string& value, int base, bool
 			// Convert digit to decimal then to binary
 			std::string digit;
 			digit.push_back(decValue[iDigit]);
-			long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
-			std::string binOfDigit = decimalToBase(decimalOfDigit, 2);
+			//long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
+			std::string binOfDigit = decimalToBase(digit, 2);
 			// Ensure binOfDigit has 3 characters
 			while (static_cast<int>(binOfDigit.length()) < static_cast<int>(posOnSequence))
 			{
