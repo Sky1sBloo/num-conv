@@ -70,6 +70,31 @@ TEST(CONVERSION_TESTS, BASE_TO_DECIMAL)
 	EXPECT_EQ(realHexadecimal, "11259375.071111");
 }
 
+TEST(CONVERSION_TESTS, BINARY_TO_BASE)
+{
+	// Check invalid direct base conversion
+	auto invalidConversion = binaryToBase("10110100001", 3);
+	EXPECT_FALSE(invalidConversion.has_value());
+
+	// Octal test
+	auto intOctal = binaryToBase("10001011", 8);
+	auto decOctal = binaryToBase("0.00011101", 8);
+	auto realOctal = binaryToBase("1011.000101", 8);
+	
+	EXPECT_EQ(intOctal.value(), "213");
+	EXPECT_EQ(decOctal, "0.072");
+	EXPECT_EQ(realOctal, "13.05");
+
+	// Hexadecimal test
+	auto intHexadecimal = binaryToBase("10001011", 16);
+	auto decHexadecimal = binaryToBase("0.00011101", 16);
+	auto realHexadecimal = binaryToBase("1011.000101", 16);
+
+	EXPECT_EQ(intHexadecimal.value(), "8B");
+	EXPECT_EQ(decHexadecimal, "0.1D");
+	EXPECT_EQ(realHexadecimal, "B.14");
+}
+
 int main(int argc, char* argv[])
 {
 	::testing::InitGoogleTest(&argc, argv);
