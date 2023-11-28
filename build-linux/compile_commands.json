@@ -10,5 +10,17 @@
   "command": "/usr/bin/c++  -I/home/jdp/custom-scripts/num-conv/include -std=gnu++17 -o CMakeFiles/num-conv.dir/src/conversion.cpp.o -c /home/jdp/custom-scripts/num-conv/src/conversion.cpp",
   "file": "/home/jdp/custom-scripts/num-conv/src/conversion.cpp",
   "output": "CMakeFiles/num-conv.dir/src/conversion.cpp.o"
+},
+{
+  "directory": "/home/jdp/custom-scripts/num-conv/build-linux",
+  "command": "/usr/bin/c++ -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -I/home/jdp/custom-scripts/num-conv/include -std=gnu++17 -o CMakeFiles/num-conv-test.dir/tests/conversion-tests.cpp.o -c /home/jdp/custom-scripts/num-conv/tests/conversion-tests.cpp",
+  "file": "/home/jdp/custom-scripts/num-conv/tests/conversion-tests.cpp",
+  "output": "CMakeFiles/num-conv-test.dir/tests/conversion-tests.cpp.o"
+},
+{
+  "directory": "/home/jdp/custom-scripts/num-conv/build-linux",
+  "command": "/usr/bin/c++ -DGTEST_LINKED_AS_SHARED_LIBRARY=1 -I/home/jdp/custom-scripts/num-conv/include -std=gnu++17 -o CMakeFiles/num-conv-test.dir/src/conversion.cpp.o -c /home/jdp/custom-scripts/num-conv/src/conversion.cpp",
+  "file": "/home/jdp/custom-scripts/num-conv/src/conversion.cpp",
+  "output": "CMakeFiles/num-conv-test.dir/src/conversion.cpp.o"
 }
 ]

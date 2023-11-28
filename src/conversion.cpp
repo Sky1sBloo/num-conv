@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <cstdint>
 
 
 // Used for printing commands dependent on the --print flag
@@ -40,61 +41,66 @@ void convertDecimalEq(int& prevQuotient, int& base, std::string& answer, bool is
 	printProcess(remainderStr, isPrint);
 }
 
-std::string decimalToBase(long double value, int base, int decimalPrecision, bool isPrint)
+
+std::string decimalToBase(const std::string& value, int base, int decimalPrecision, bool isPrint)
 {
-	// The following code is for the integer part of the value
-	int prevQuotient = std::floor(value);
-	std::string answer = "";
+	// The ff code is for the integer part of value
+	std::string intValue = value;
+	std::string intAns = "";
+	size_t decPos = value.find(".");
+
+	if (decPos != std::string::npos)
+		intValue = value.substr(0, decPos);
+	int prevQuotient = std::stoi(intValue);
+	
 	while (prevQuotient >= base)
 	{
-		convertDecimalEq(prevQuotient, base, answer, isPrint);
+		convertDecimalEq(prevQuotient, base, intAns, isPrint);
 	}
-	convertDecimalEq(prevQuotient, base, answer, isPrint);
+	convertDecimalEq(prevQuotient, base, intAns, isPrint);
 
-	// Reverse to get the correct answer
-	std::reverse(answer.begin(), answer.end());
-	printProcess("Answer Int: " + answer, isPrint);
+	// Reverse to get the correct order
+	std::reverse(intAns.begin(), intAns.end());
+	printProcess("Answer Int: " + intAns, isPrint);
 
-
-	// The ff code is for the decimal part of the value
-	long double decimal = value - std::floor(value);
-
-	
-	std::string ansDecimal = "";
-	int currentLoop = 0; // To prevent infinite looping on irrational numbers
-
-	while (decimal != 0 && currentLoop < decimalPrecision)
+	// The ff code is for the decimal part of value
+	if (decPos != std::string::npos)
 	{
-		long double newDecimal = decimal * base;
-		char intAnswer;
-		if (newDecimal >= 10)
-			intAnswer = std::floor(newDecimal) + 'A' - 10;
-		else
-			intAnswer = std::floor(newDecimal) + '0';
+		std::string decValue = value.substr(decPos, value.length() - 1);
+		std::string decAns = "";
+		
+		for (int iLoop = 0; iLoop < decimalPrecision || iLoop < decValue.length(); iLoop++)
+		{
+			long double newDecimal = std::stold(decValue) * base;
+			char intAnswer;
 
-		ansDecimal += intAnswer;
+			// For hexadecimal support
+			if(newDecimal >= 10)
+				intAnswer = std::floor(newDecimal) + 'A' - 10;
+			else
+				intAnswer = std::floor(newDecimal) + '0';
 
-		printProcess(std::to_string(decimal) + " * " + std::to_string(base) + " = " + 
-			std::to_string(newDecimal), isPrint);
+			decAns += intAnswer;
 
-		decimal = newDecimal - std::floor(newDecimal);
-		currentLoop++;
+
+			printProcess(decValue + " * " + std::to_string(base) + " = " +
+				       std::to_string(newDecimal), isPrint);
+			decValue = std::to_string(newDecimal - std::floor(newDecimal));
+		}
+
+		// Decimal part
+		printProcess("Answer Decimal: " + decAns, isPrint);
+		printSeparator(isPrint);	
+		return intAns + "." + decAns;
 	}
-
-	// Decimal part
-	printProcess("Answer Decimal: " + ansDecimal, isPrint);
-
-	printSeparator(isPrint);
-	// Final answer
-	if (ansDecimal == "")	return answer;
-	return answer + "." + ansDecimal;
+	return intAns;	
 }
 
 std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 {
 	// For the integer part of value
 	std::string intValue = value;
-	int intAns = 0;
+	std::int64_t intAns = 0;
 	size_t decPos = value.find(".");
 	if (decPos != std::string::npos)
 		intValue = value.substr(0, decPos);
@@ -259,7 +265,7 @@ std::optional<std::string> baseToBinary(const std::string& value, int base, bool
 			digit.push_back(intValue[iDigit]);
 
 		//long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
-		std::string binOfDigit = decimalToBase(std::stold(digit), 2);
+		std::string binOfDigit = decimalToBase(digit, 2);
 		// Ensure binOfDigit has 3 characters
 		while (static_cast<int>(binOfDigit.length()) < static_cast<int>(posOnSequence))
 		{
@@ -290,8 +296,8 @@ std::optional<std::string> baseToBinary(const std::string& value, int base, bool
 			// Convert digit to decimal then to binary
 			std::string digit;
 			digit.push_back(decValue[iDigit]);
-			long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
-			std::string binOfDigit = decimalToBase(decimalOfDigit, 2);
+			//long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
+			std::string binOfDigit = decimalToBase(digit, 2);
 			// Ensure binOfDigit has 3 characters
 			while (static_cast<int>(binOfDigit.length()) < static_cast<int>(posOnSequence))
 			{
