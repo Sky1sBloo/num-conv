@@ -295,7 +295,11 @@ std::optional<std::string> baseToBinary(const std::string& value, int base, bool
 		{
 			// Convert digit to decimal then to binary
 			std::string digit;
-			digit.push_back(decValue[iDigit]);
+
+			if (std::toupper(decValue[iDigit] >= 'A'))
+				digit = std::to_string(decValue[iDigit] - 'A' + 10);
+			else
+				digit.push_back(decValue[iDigit]);
 			//long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
 			std::string binOfDigit = decimalToBase(digit, 2);
 			// Ensure binOfDigit has 3 characters

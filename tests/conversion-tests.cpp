@@ -95,6 +95,30 @@ TEST(CONVERSION_TESTS, BINARY_TO_BASE)
 	EXPECT_EQ(realHexadecimal, "B.14");
 }
 
+TEST(CONVERSION_TESTS, BASE_TO_BINARY)
+{
+	// Check invalid direct base conversion
+	auto invalidConversion = baseToBinary("10110100001", 3);
+	EXPECT_FALSE(invalidConversion.has_value());
+
+	// Octal test
+	auto intOctal = baseToBinary("7654321", 8);
+	auto decOctal = baseToBinary("0.1234567", 8);
+	auto realOctal = baseToBinary("7654321.1234567", 8);
+	
+	EXPECT_EQ(intOctal.value(), "111110101100011010001");
+	EXPECT_EQ(decOctal, ".001010011100101110111");
+	EXPECT_EQ(realOctal, "111110101100011010001.001010011100101110111");
+
+	// Hexadecimal test
+	auto intHexadecimal = baseToBinary("ABCDEF987654321", 16);
+	auto decHexadecimal = baseToBinary("0.ABCDEF9", 16);
+	auto realHexadecimal = baseToBinary("1011.000101", 16);
+
+	EXPECT_EQ(intHexadecimal.value(), "101010111100110111101111100110000111011001010100001100100001");
+	EXPECT_EQ(decHexadecimal, "0.1D");
+}
+
 int main(int argc, char* argv[])
 {
 	::testing::InitGoogleTest(&argc, argv);
