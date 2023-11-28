@@ -46,5 +46,4 @@ std::optional<std::string> binaryToBase(const std::string& value, int base, bool
  * @param base The current base of value
  * @param isPrint Function will print its processed steps if isPrint is true
  */
-
 std::optional<std::string> baseToBinary(const std::string& value, int base, bool isPrint = false);

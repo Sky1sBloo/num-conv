@@ -78,5 +78,8 @@ Does a direct connection from binary to the specified radix
 ```
 Does a conversion between from base to binary
 
+## Testing
+Testing executable is in the tests folder `num-conv-test`. Add extra tests by modifying CMakeLists.txt.
+
 ## Contributions
 Contributions are welcome! Feel free to submit pull requests and open issues.
