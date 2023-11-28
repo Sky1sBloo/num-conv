@@ -166,4 +166,7 @@ CMakeFiles/num-conv.dir/src/conversion.cpp.o: \
  /usr/include/c++/13.2.1/tr1/poly_laguerre.tcc \
  /usr/include/c++/13.2.1/tr1/riemann_zeta.tcc \
  /usr/include/c++/13.2.1/optional \
- /usr/include/c++/13.2.1/bits/enable_special_members.h
+ /usr/include/c++/13.2.1/bits/enable_special_members.h \
+ /usr/include/c++/13.2.1/cstdint \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/stdint-uintn.h

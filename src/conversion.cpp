@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <cstdint>
 
 
 // Used for printing commands dependent on the --print flag
@@ -40,6 +41,62 @@ void convertDecimalEq(int& prevQuotient, int& base, std::string& answer, bool is
 	printProcess(remainderStr, isPrint);
 }
 
+
+std::string decimalToBase(const std::string& value, int base, int decimalPrecision, bool isPrint)
+{
+	// The ff code is for the integer part of value
+	std::string intValue = value;
+	std::string intAns = "";
+	size_t decPos = value.find(".");
+
+	if (decPos != std::string::npos)
+		intValue = value.substr(0, decPos);
+	int prevQuotient = std::stoi(intValue);
+	
+	while (prevQuotient >= base)
+	{
+		convertDecimalEq(prevQuotient, base, intAns, isPrint);
+	}
+	convertDecimalEq(prevQuotient, base, intAns, isPrint);
+
+	// Reverse to get the correct order
+	std::reverse(intAns.begin(), intAns.end());
+	printProcess("Answer Int: " + intAns, isPrint);
+
+	// The ff code is for the decimal part of value
+	if (decPos != std::string::npos)
+	{
+		std::string decValue = value.substr(decPos, value.length() - 1);
+		std::string decAns = "";
+		
+		for (int iLoop = 0; iLoop < decimalPrecision && iLoop < decValue.length(); iLoop++)
+		{
+			long double newDecimal = std::stold(decValue) * base;
+			char intAnswer;
+
+			// For hexadecimal support
+			if(newDecimal >= 10)
+				intAnswer = std::floor(newDecimal) + 'A' - 10;
+			else
+				intAnswer = std::floor(newDecimal) + '0';
+
+			decAns += intAnswer;
+
+
+			printProcess(decValue + " * " + std::to_string(base) + " = " +
+				       std::to_string(newDecimal), isPrint);
+			decValue = std::to_string(newDecimal - std::floor(newDecimal));
+		}
+
+		// Decimal part
+		printProcess("Answer Decimal: " + decAns, isPrint);
+		printSeparator(isPrint);	
+		return intAns + "." + decAns;
+	}
+	return intAns;	
+}
+
+// Change value to string
 std::string decimalToBase(long double value, int base, int decimalPrecision, bool isPrint)
 {
 	// The following code is for the integer part of the value
@@ -63,6 +120,7 @@ std::string decimalToBase(long double value, int base, int decimalPrecision, boo
 	std::string ansDecimal = "";
 	int currentLoop = 0; // To prevent infinite looping on irrational numbers
 
+	// The operation decimal != 0 is wrong
 	while (decimal != 0 && currentLoop < decimalPrecision)
 	{
 		long double newDecimal = decimal * base;
@@ -94,7 +152,7 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 {
 	// For the integer part of value
 	std::string intValue = value;
-	int intAns = 0;
+	std::int64_t intAns = 0;
 	size_t decPos = value.find(".");
 	if (decPos != std::string::npos)
 		intValue = value.substr(0, decPos);
