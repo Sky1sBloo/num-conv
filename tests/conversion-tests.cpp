@@ -32,7 +32,6 @@ TEST(CONVERSION_TESTS, DECIMAL_TO_BASE)
 	std::string decHexadecimal = decimalToBase("0.123456789", 16);
 	std::string decHexadecimalPrecision = decimalToBase("0.123456789", 16, 16);
 	std::string realHexadecimal = decimalToBase("123456789.123456", 16, 16);
-	std::cout << realHexadecimal << std::endl;
 
 	EXPECT_EQ(intHexadecimal, "75BCD15");
 	EXPECT_EQ(decHexadecimal, "0.1F9ADD9C");
@@ -64,10 +63,12 @@ TEST(CONVERSION_TESTS, BASE_TO_DECIMAL)
 	std::string intHexadecimal = baseToDecimal("ABCDEF", 16);
 	std::string decHexadecimal = baseToDecimal("0.123456789ABCDEF", 16);
 	std::string realHexadecimal = baseToDecimal("ABCDEF.123456789ABCDEF", 16);
+	std::string lowercaseHex = baseToDecimal("abcdef.123456789abcdef", 16);
 	
 	EXPECT_EQ(intHexadecimal, "11259375");
 	EXPECT_EQ(decHexadecimal, "0.071111");
 	EXPECT_EQ(realHexadecimal, "11259375.071111");
+	EXPECT_EQ(lowercaseHex, "11259375.071111");
 }
 
 TEST(CONVERSION_TESTS, BINARY_TO_BASE)
@@ -114,10 +115,12 @@ TEST(CONVERSION_TESTS, BASE_TO_BINARY)
 	auto intHexadecimal = baseToBinary("ABCDEF987654321", 16);
 	auto decHexadecimal = baseToBinary("0.ABCDEF9", 16);
 	auto realHexadecimal = baseToBinary("ABCDEF.ABCDEF", 16);
+	auto lowercaseHex = baseToBinary("abcdef.abcdef", 16);
 
 	EXPECT_EQ(intHexadecimal.value(), "101010111100110111101111100110000111011001010100001100100001");
 	EXPECT_EQ(decHexadecimal, ".1010101111001101111011111001");
 	EXPECT_EQ(realHexadecimal, "101010111100110111101111.101010111100110111101111");
+	EXPECT_EQ(lowercaseHex, "101010111100110111101111.101010111100110111101111");
 }
 
 int main(int argc, char* argv[])

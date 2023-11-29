@@ -260,7 +260,7 @@ std::optional<std::string> baseToBinary(const std::string& value, int base, bool
 
 		// Supports hexadecimalvalues
 		if (std::toupper(intValue[iDigit]) >= 'A')
-			digit = std::to_string(intValue[iDigit] - 'A' + 10);  // Converts hex values to integral values
+			digit = std::to_string(std::toupper(intValue[iDigit]) - 'A' + 10);  // Converts hex values to integral values
 		else
 			digit.push_back(intValue[iDigit]);
 
@@ -297,7 +297,7 @@ std::optional<std::string> baseToBinary(const std::string& value, int base, bool
 			std::string digit;
 
 			if (std::toupper(decValue[iDigit] >= 'A'))
-				digit = std::to_string(decValue[iDigit] - 'A' + 10);
+				digit = std::to_string(std::toupper(decValue[iDigit]) - 'A' + 10);
 			else
 				digit.push_back(decValue[iDigit]);
 			//long double decimalOfDigit = std::stold(baseToDecimal(digit, base));
