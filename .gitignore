@@ -1,4 +1,5 @@
 # Untracked files
+.cache/
 .ccls-cache
 main.back.cpp
 CMakeLists.txt.user
