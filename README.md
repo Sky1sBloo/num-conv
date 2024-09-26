@@ -2,34 +2,15 @@
 This tool provides basic utilities for basic number system conversion and prints its processes
 
 ## Installation
-### Installation for Windows users
-1. Clone the repository or download zip.
-    ```
-    git clone https://github.com/Ultra8Gaming/num-conv.git
-    ```
-2. Extract the zip file (if applicable).
-3. Open the folder where you extracted/cloned the repository.
-4. Right click, click **Open in Terminal** (if you're using Windows 11 and its missing, press **Show more options**)
-5. You can run the program by typing `num-conv.exe [COMMAND]` in the terminal. You can see the commands below or type `num-conv.exe --help` in the console.
-
-
->Notes
->If **Open in Terminal** is missing in the context menu, you can:
->1. Open the command prompt
->2. Type cd "directory to your file"
->```
->ex. cd C:\users\[USER]\desktop\num-conv
->```
-
-### Installation for Linux users
+### Installation 
 Follow the steps below to perform a manual installation:
 1. Clone the repository
     ```
     git clone https://github.com/Ultra8Gaming/num-conv.git
     ```
-2. Go to the *build-linux* directory
+2. Generate cmake files
     ```
-    cd build-linux
+    cmake ./
     ```
 3. Compile and install
     ```

@@ -125,6 +125,7 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 	long double decAns = 0;
 	if (decPos != std::string::npos)
 	{	
+		// We get the integer version of decimal to handle higher precision
 		std::string decValue = value.substr(decPos, value.length() - 1);	
 		decValue.erase(0, 1);  // Removes the "0." from decimal
 		int decLength = decValue.length();
@@ -138,17 +139,17 @@ std::string baseToDecimal(const std::string& value, int base, bool isPrint)
 			long double digitAns = digitValue * std::pow(base, -(digit + 1));
 			decAns += digitAns;
 			printProcess(std::to_string(digitValue) + " *" + std::to_string(base) + "^" + std::to_string(-(digit + 1)) + 
-				" = " + std::to_string(digitAns), isPrint);
+				" = 0." + std::to_string(digitAns), isPrint);
 		}
 
 			// Since decAns currently appends to int convert it to decimal
-		printProcess("Answer Decimal: " + std::to_string(decAns), isPrint);
+		printProcess("Answer Decimal: 0." + std::to_string(decAns), isPrint);
 	
 	}
 	printSeparator(isPrint);
 	
 	if (decAns == 0) return std::to_string(intAns);
-	return std::to_string(decAns + intAns);
+	return std::to_string(intAns) + "." + std::to_string(decAns);
 }
 
 std::optional<std::string> binaryToBase(const std::string& value, int base, bool isPrint)

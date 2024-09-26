@@ -1,1 +1,0 @@
-/usr/bin/c++ "CMakeFiles/num-conv.dir/main.cpp.o" "CMakeFiles/num-conv.dir/src/conversion.cpp.o" -o /home/jdp/custom-scripts/num-conv/num-conv 

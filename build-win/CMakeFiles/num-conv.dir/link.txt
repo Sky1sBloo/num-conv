@@ -1,3 +1,0 @@
-/usr/bin/cmake -E rm -f CMakeFiles/num-conv.dir/objects.a
-/usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/num-conv.dir/objects.a @CMakeFiles/num-conv.dir/objects1.rsp
-/usr/bin/x86_64-w64-mingw32-g++ -D_FORTIFY_SOURCE=3 -D_GLIBCXX_ASSERTIONS -O2 -pipe -fno-plt -fexceptions --param=ssp-buffer-size=4 -Wformat -Werror=format-security -fcf-protection -static -Wl,--whole-archive CMakeFiles/num-conv.dir/objects.a -Wl,--no-whole-archive -o /home/jdp/custom-scripts/num-conv/num-conv.exe -Wl,--out-implib,libnum-conv.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/num-conv.dir/linkLibs.rsp
